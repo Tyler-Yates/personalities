@@ -42,11 +42,7 @@ def convert_mbti_to_functions(mbti: str) -> List[str]:
             function_expression.append("e")
         else:
             function_expression.append("i")
-    for i in range(4):
-        if i % 2 == check:
-            function_expression.append("i")
-        else:
-            function_expression.append("e")
+    function_expression.extend(reversed(function_expression))
 
     # Primary functions
     functions = []
