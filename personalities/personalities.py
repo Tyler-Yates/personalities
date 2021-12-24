@@ -1,5 +1,7 @@
 from typing import List
 
+FUNCTIONS_PER_PERSONALITY = 8
+
 MBTI_PERSONALITIES = frozenset(
     [
         "ISTJ",
@@ -37,7 +39,7 @@ def convert_mbti_to_functions(mbti: str) -> List[str]:
     # Function expressions ('i' vs 'e')
     function_expression = []
     check = 0 if mbti[0] == "E" else 1
-    for i in range(4):
+    for i in range(FUNCTIONS_PER_PERSONALITY // 2):
         if i % 2 == check:
             function_expression.append("e")
         else:
@@ -60,7 +62,10 @@ def convert_mbti_to_functions(mbti: str) -> List[str]:
     # Shadow functions
     functions.extend(functions)
 
-    return [f"{functions[i]}{function_expression[i]}" for i in range(8)]
+    return [
+        f"{functions[i]}{function_expression[i]}"
+        for i in range(FUNCTIONS_PER_PERSONALITY)
+    ]
 
 
 def _get_opposite_function(function: str) -> str:
