@@ -1,6 +1,6 @@
 import pytest
 
-from personalities.personalities import convert_mbti_to_functions
+from personalities.personalities import convert_mbti_to_functions, MBTI_PERSONALITIES
 
 
 def test_personality_conversion_intj():
@@ -27,6 +27,14 @@ def test_personality_conversion_enfp():
         "Ti",
         "Se",
     ] == convert_mbti_to_functions("ENFP")
+
+
+def test_all_personalities():
+    for personality in MBTI_PERSONALITIES:
+        converted_personality = convert_mbti_to_functions(personality)
+        assert len(converted_personality) == 8
+        assert all((item[0] in ["N", "S", "F", "T"]) for item in converted_personality)
+        assert all((item[1] in ["i", "e"]) for item in converted_personality)
 
 
 def test_personality_conversion_case():
